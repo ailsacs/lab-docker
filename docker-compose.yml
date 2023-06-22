@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: apache_teste
+    image: php-pdo-mysql
     restart: always
     ports:
       - "${WEB_PORT}:80"
