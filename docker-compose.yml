@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  web:
+    image: apache_teste
+    restart: always
+    ports:
+      - "${WEB_PORT}:80"
+    volumes:
+      - ${WEB_PATH}:/var/www/html/
+    env_file:
+      - .env
+    networks:
+      - app-network
+      
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      -  ${DB_PATH}:/var/lib/mysql  
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+networks:
+  app-network:
+    driver: bridge
